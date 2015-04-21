@@ -1,7 +1,22 @@
 /* main function of the calculate.*/
+#include<stdio.h>
+#include<stdlib.h>
+
+#define NUMBER '0'
+#define MAXOP 100
+
+int getop(char []);
+void push(double);
+double pop(void);
+
 int main(void)
 {
-	while((type = getop() != EOF)
+	int type;
+	double op2;
+	char s[MAXOP];
+
+	while((type = getop(s)) != EOF)
+	{
 		switch(type)
 		{
 			case NUMBER:
@@ -15,21 +30,22 @@ int main(void)
 				break;
 			case '-':
 				op2 = pop();
-				push(op2 - pop());
+				push(pop() - op2);
 				break;
 			case '/':
 				op2 = pop();
-				op1 = pop();
-				if(op1 != 0.0)
-					push(op2 - op1);
-					break;
+				if(op2 != 0.0)
+					push(pop() / op2);
 				else
 					printf("error:zero divisor.\n");
+				break;
 			case '\n':
 				printf("the result is %f.\n", pop());
 				break;
 			default:
-				printf("error: unknown commmand")
+				printf("error: unknown commmand");
 				break;
 		}
-
+	}
+	return 0;
+}
